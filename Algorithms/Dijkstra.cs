@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.DirectoryServices.ActiveDirectory;
 using GraphPathfinder.Models;
 
 namespace GraphPathfinder.Algorithms
@@ -29,7 +30,26 @@ namespace GraphPathfinder.Algorithms
             distances[start] = 0;
             priorityQueue.Enqueue(start, 0);
 
-            
+            while (priorityQueue.Count > 0)
+            {
+                var current = priorityQueue.Dequeue();
+
+                if (current == target)
+                {
+                    break;
+                }
+
+                foreach (var node in Graph.Nodes)
+                {
+                    if (newDistance < disatances[neighbor])
+                    {
+                        distances[neighbor] = newDistance;
+                        previous[neighbor] = current;
+
+                        priorityQueue.Enqueue(neighbor, newDistance);
+                    }
+                }
+            }
         }
     }
 }
