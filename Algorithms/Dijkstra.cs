@@ -39,17 +39,36 @@ namespace GraphPathfinder.Algorithms
                     break;
                 }
 
-                foreach (var node in Graph.Nodes)
+                foreach (var edge in graph.GetOutgoingEdges(current))
                 {
-                    if (newDistance < disatances[neighbor])
+                    var neighbor = edge.Target;
+                    var newDistance = distances[current] + edge.Weight;
+
+                    if (newDistance < distances[neighbor])
                     {
                         distances[neighbor] = newDistance;
                         previous[neighbor] = current;
-
                         priorityQueue.Enqueue(neighbor, newDistance);
                     }
                 }
             }
+
+            if (distances[target] == double.PositiveInfinity)
+            {
+                return new PathResult("Шлях між заданими вузлами не знайдено.");
+            }
+
+            var path = new List<Node>();
+            var currentNode = target;
+
+            while (currentNode != null)
+            {
+                path.Add(currentNode);
+                previous.TryGetValue(currentNode, out currentNode);
+            }
+            path.Reverse();
+
+            return new PathResult(path, distances[target], 0);
         }
     }
 }
