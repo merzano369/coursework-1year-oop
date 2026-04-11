@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using GraphPathfinder.Models;
 
 namespace GraphPathfinder.Algorithms
@@ -9,8 +8,13 @@ namespace GraphPathfinder.Algorithms
 
         public PathResult FindPath(Graph graph, Node start, Node target)
         {
-            // Placeholder
-            return new PathResult("Not implemented yet");
+            // 1. ініціалізація
+                // словник відстаней та попередніх вузлів
+            // 2. основний цикл (Релаксація)
+                // зробити цикл, який повторюється (к-сть вузлів - 1)
+                    // зробити внутрішній цикл, для перевірки чи можна скоротити шлях через цей вузол
+            // 3. перевірка на від'ємні цикли
+            // 4. відновлення шляху
         }
     }
 }
