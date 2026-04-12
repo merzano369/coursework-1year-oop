@@ -22,7 +22,6 @@ namespace GraphPathfinder.Algorithms
             distances[start] = 0;
             int verticesCount = graph.Nodes.Count;
 
-            // --- ЕТАП 2: Основний цикл (V - 1 разів) ---
             for (int i = 0; i < verticesCount - 1; i++)
             {
                 foreach (var edge in graph.Edges)
@@ -31,39 +30,43 @@ namespace GraphPathfinder.Algorithms
                     var v = edge.Target;
                     var weight = edge.Weight;
 
-                    if (distances[u] != double.PositiveInfinity && distances[u] + weight < distances[v])
+                    if (!double.IsPositiveInfinity(distances[u]) && distances[u] + weight < distances[v])
                     {
                         previous[v] = u;
                         distances[v] = distances[u] + weight;
-
                     }
                 }
             }
 
-            // --- ЕТАП 3: Перевірка на від'ємні цикли ---
             foreach (var edge in graph.Edges)
             {
-                
+                var u = edge.Source;
+                var v = edge.Target;
+                var weight = edge.Weight;
+
+                if (!double.IsPositiveInfinity(distances[u]) && distances[u] + weight < distances[v])
+                {
+                    return new PathResult("Помилка: Граф містить цикл з від'ємною вагою. Найкоротшого шляху не існує.");
+                }
             }
-            
-            // TODO: Ще раз пройдись по всіх graph.Edges
-            
-                // TODO: Якщо знову спрацьовує умова релаксації — повернути:
-                //       new PathResult("Помилка: Граф містить цикл з від'ємною вагою. Найкоротшого шляху не існує.")
+        
+            if (double.IsPositiveInfinity(distances[target]))
+            {
+                return new PathResult("Шлях між заданими вузлами не знайдено.");
+            }
 
-            // --- ЕТАП 4: Формування результату ---
-            
-            // TODO: Якщо distances[target] == double.PositiveInfinity — повернути:
-            //       new PathResult("Шлях між заданими вузлами не знайдено.")
+            var path = new List<Node>();
+            var currentNode = target;
 
-            // TODO: Оголоси List<Node> path для збереження маршруту
+            while (currentNode != null)
+            {
+                path.Add(currentNode);
+                previous.TryGetValue(currentNode, out var nextNode);
+                currentNode = nextNode;
+            }
+            path.Reverse();
 
-            // TODO: Починаючи з target, у циклі while йди назад по previous,
-            //       додаючи кожен вузол у path, поки не дійдеш до null
-
-            // TODO: Перевернути path (він записувався з кінця в початок)
-
-            // TODO: Повернути new PathResult(path, distances[target], 0)
+            return new PathResult(path, distances[target], 0);
         }
     }
 }

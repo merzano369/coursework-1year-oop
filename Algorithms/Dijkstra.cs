@@ -52,7 +52,7 @@ namespace GraphPathfinder.Algorithms
                 }
             }
 
-            if (distances[target] == double.PositiveInfinity)
+            if (double.IsPositiveInfinity(distances[target]))
             {
                 return new PathResult("Шлях між заданими вузлами не знайдено.");
             }
