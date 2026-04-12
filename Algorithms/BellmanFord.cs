@@ -1,4 +1,7 @@
+using System.ComponentModel;
+using System.Collections.Generic;
 using GraphPathfinder.Models;
+using System.Windows;
 
 namespace GraphPathfinder.Algorithms
 {
@@ -11,32 +14,37 @@ namespace GraphPathfinder.Algorithms
             var distances = new Dictionary<Node, double>();
             var previous = new Dictionary<Node, Node>();
 
-            // --- ЕТАП 1: Ініціалізація ---
-            
-            // TODO: Оголоси Dictionary<Node, double> для зберігання відстаней до кожного вузла
-            
-            // TODO: Оголоси Dictionary<Node, Node> для зберігання попередніх вузлів (щоб відновити маршрут)
+            foreach (var node in graph.Nodes)
+            {
+                distances[node] = double.PositiveInfinity;
+            }
 
-            // TODO: Пройдись по всіх graph.Nodes і встанови кожному відстань = double.PositiveInfinity
-
-            // TODO: Встанови відстань до start = 0
-
-            // TODO: Збережи кількість вузлів графа в змінну verticesCount
+            distances[start] = 0;
+            int verticesCount = graph.Nodes.Count;
 
             // --- ЕТАП 2: Основний цикл (V - 1 разів) ---
-            
-            // TODO: Запусти зовнішній цикл від 0 до verticesCount - 1
+            for (int i = 0; i < verticesCount - 1; i++)
+            {
+                foreach (var edge in graph.Edges)
+                {
+                    var u = edge.Source;
+                    var v = edge.Target;
+                    var weight = edge.Weight;
 
-                // TODO: Всередині — пройдись по всіх graph.Edges
-                
-                    // TODO: Отримай u (Source), v (Target), weight (Weight) з поточного ребра
+                    if (distances[u] != double.PositiveInfinity && distances[u] + weight < distances[v])
+                    {
+                        previous[v] = u;
+                        distances[v] = distances[u] + weight;
 
-                    // TODO: Перевір умову релаксації:
-                    //       - distances[u] != double.PositiveInfinity
-                    //       - distances[u] + weight < distances[v]
-                    //       Якщо обидві виконуються — оновити distances[v] і previous[v]
+                    }
+                }
+            }
 
             // --- ЕТАП 3: Перевірка на від'ємні цикли ---
+            foreach (var edge in graph.Edges)
+            {
+                
+            }
             
             // TODO: Ще раз пройдись по всіх graph.Edges
             
@@ -56,11 +64,6 @@ namespace GraphPathfinder.Algorithms
             // TODO: Перевернути path (він записувався з кінця в початок)
 
             // TODO: Повернути new PathResult(path, distances[target], 0)
-
-            foreach (var node in graph.Nodes)
-            {
-                foreach ()
-            }
         }
     }
 }
