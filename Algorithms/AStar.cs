@@ -10,9 +10,9 @@ namespace GraphPathfinder.Algorithms
 
         public PathResult FindPath(Graph graph, Node start, Node target)
         {
-            var gScores = new Dictionary<Node, double>(); // зберігає реальну відстань від start до конкретного вузла
-            var fScores = new Dictionary<Node, double>(); // зберігає суму: реальна відстань + евристика до target
-            var previous = new Dictionary<Node, Node>(); // для відновлення шляху
+            var gScores = new Dictionary<Node, double>();
+            var fScores = new Dictionary<Node, double>();
+            var previous = new Dictionary<Node, Node>();
 
             foreach (var node in graph.Nodes)
             {
