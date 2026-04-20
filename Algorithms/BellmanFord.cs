@@ -49,7 +49,7 @@ namespace GraphPathfinder.Algorithms
                     return new PathResult("Помилка: Граф містить цикл з від'ємною вагою. Найкоротшого шляху не існує.");
                 }
             }
-        
+
             if (double.IsPositiveInfinity(distances[target]))
             {
                 return new PathResult("Шлях між заданими вузлами не знайдено.");

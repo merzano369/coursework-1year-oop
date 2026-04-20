@@ -21,7 +21,7 @@ namespace GraphPathfinder.Algorithms
             var previous = new Dictionary<Node, Node>();
             var priorityQueue = new PriorityQueue<Node, double>();
 
-            foreach (var node in  graph.Nodes)
+            foreach (var node in graph.Nodes)
             {
                 distances[node] = double.PositiveInfinity;
             }

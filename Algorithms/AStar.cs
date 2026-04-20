@@ -26,7 +26,6 @@ namespace GraphPathfinder.Algorithms
             var priorityQueue = new PriorityQueue<Node, double>();
             priorityQueue.Enqueue(start, fScores[start]);
 
-            // --- ЕТАП 3: Основний цикл пошуку ---
             while (priorityQueue.Count > 0)
             {
                 var current = priorityQueue.Dequeue();
@@ -74,7 +73,7 @@ namespace GraphPathfinder.Algorithms
         {
             double dX = a.X - b.X;
             double dY = a.Y - b.Y;
-            return Math.Sqrt(dX * dX + dY * dY);        
+            return Math.Sqrt(dX * dX + dY * dY);
         }
     }
 }
